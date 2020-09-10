@@ -10,6 +10,10 @@
   "engines": {
     "node": ">=10"
   },
+  "keywords": [
+    "viewport",
+    "flexible-library"
+  ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
@@ -32,7 +36,5 @@
   "name": "vw-flexible",
   "author": "pwcong",
   "module": "dist/vw-flexible.esm.js",
-  "devDependencies": {
-    "tsdx": "^0.13.3"
-  }
+  "devDependencies": {}
 }
