@@ -1,6 +1,6 @@
 # VW Flexible
 
-A scalable layout scheme implemented using 'viewport'.
+A scalable layout scheme implemented using `viewport`.
 
 ### Quick Start
 
