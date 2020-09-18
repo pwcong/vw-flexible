@@ -19,17 +19,22 @@ import VW from 'vw-flexible';
 
 new VW({
   // design draft size
-  width: 640,
+  width: 360,
+  // set 1rem = 10px
+  rem2px: 10,
 });
 ```
 
 ```html
 <style>
-  #app {
-    width: 640px;
-    margin: 0 auto;
+  .block {
+    background-color: red;
+    width: 18rem;
+    height: 18rem;
   }
 </style>
 
-<div id="app"></div>
+<div class="container">
+  <div class="block"></div>
+</div>
 ```

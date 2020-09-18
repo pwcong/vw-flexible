@@ -1,74 +1,45 @@
 export interface IOptions {
+  id?: string;
   width: number;
+  rem2px: number;
 }
 
+const _ID = 'vw-flexible';
+
 export default class VWFlexible {
+  stylesheet?: HTMLElement;
   options: IOptions;
-  resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
 
   constructor(options: IOptions) {
     this.options = options;
+
     this.init();
   }
 
   init = () => {
-    if (!document.addEventListener) {
-      return;
-    }
-    // DOM初始化时计算一次
-    document.addEventListener('DOMContentLoaded', this.recalc, false);
-    // 屏幕尺寸变化重新计算
-    window.addEventListener(this.resizeEvt, this.recalc, false);
-    // 横竖屏切换重新计算
-    document.addEventListener(this.resizeEvt, this.orientchange, false);
-  };
+    const { id = _ID, width, rem2px } = this.options;
 
-  recalc = () => {
-    const { width } = this.options;
+    let stylesheet = document.getElementById('vw-flexible');
 
-    let meta = document.getElementsByName('viewport')[0];
-
-    if (!meta) {
-      meta = document.createElement('meta');
-      meta.setAttribute('name', 'viewport');
-      document.head.appendChild(meta);
+    if (!stylesheet) {
+      stylesheet = document.createElement('style');
+      stylesheet.id = id;
+      document.head.appendChild(stylesheet);
     }
 
-    meta.setAttribute(
-      'content',
-      'width=device-width,initial-scale=1.0,user-scalable=no'
-    );
+    this.stylesheet = stylesheet;
 
-    const clientWidth = document.documentElement.clientWidth;
+    const px2vw = 100 / width;
+    const base = rem2px * px2vw;
 
-    let scale = clientWidth / width;
-    scale = scale > 1 ? 1 : scale;
-
-    meta.setAttribute(
-      'content',
-      `width=${width},minimum-scale=${scale},maximum-scale=${scale},user-scalable=no,minimal-ui`
-    );
-  };
-
-  orientchange = () => {
-    setTimeout(() => {
-      if (
-        window.orientation == 180 ||
-        window.orientation == 0 ||
-        window.orientation == 90 ||
-        window.orientation == -90
-      ) {
-        this.recalc();
+    stylesheet.innerHTML = `
+      html {
+        font-size: ${base}vw !important;
       }
-    }, 200);
+    `;
   };
 
   destroy = () => {
-    if (!document.removeEventListener) {
-      return;
-    }
-    document.removeEventListener('DOMContentLoaded', this.recalc, false);
-    window.removeEventListener(this.resizeEvt, this.recalc, false);
-    document.removeEventListener(this.resizeEvt, this.orientchange, false);
+    !!this.stylesheet && document.head.removeChild(this.stylesheet);
   };
 }

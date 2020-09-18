@@ -15,11 +15,12 @@
     "flexible-library"
   ],
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
+    "example": "npm run start & browser-sync start -s \"example\" --ss \"dist\" -f \"example\" \"dist\"",
+    "start": "tsdx watch --format cjs,esm,umd --name VWFlexible",
+    "build": "tsdx build --format cjs,esm,umd --name VWFlexible",
     "test": "tsdx test",
     "lint": "tsdx lint",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build --format cjs,esm,umd --name VWFlexible"
   },
   "peerDependencies": {},
   "prettier": {
@@ -36,5 +37,8 @@
   "name": "vw-flexible",
   "author": "pwcong",
   "module": "dist/vw-flexible.esm.js",
-  "devDependencies": {}
+  "devDependencies": {
+    "browser-sync": "^2.26.12",
+    "tsdx": "^0.13.3"
+  }
 }
