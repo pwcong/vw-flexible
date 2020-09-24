@@ -1,10 +1,10 @@
 export interface IOptions {
   id?: string;
-  width: number;
-  rem2px: number;
+  totalRem?: number;
 }
 
-const _ID = 'vw-flexible';
+const __ID = 'vw-flexible';
+const __TOTAL_REM = 10;
 
 export default class VWFlexible {
   stylesheet?: HTMLElement;
@@ -17,9 +17,9 @@ export default class VWFlexible {
   }
 
   init = () => {
-    const { id = _ID, width, rem2px } = this.options;
+    const { id = __ID, totalRem = __TOTAL_REM } = this.options;
 
-    let stylesheet = document.getElementById('vw-flexible');
+    let stylesheet = document.getElementById(id);
 
     if (!stylesheet) {
       stylesheet = document.createElement('style');
@@ -29,12 +29,9 @@ export default class VWFlexible {
 
     this.stylesheet = stylesheet;
 
-    const px2vw = 100 / width;
-    const base = rem2px * px2vw;
-
     stylesheet.innerHTML = `
       html {
-        font-size: ${base}vw !important;
+        font-size: ${100 / totalRem}vw !important;
       }
     `;
   };
