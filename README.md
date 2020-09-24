@@ -18,10 +18,8 @@ npm install vw-flexible
 import VW from 'vw-flexible';
 
 new VW({
-  // design draft size
-  width: 360,
-  // set 1rem = 10px
-  rem2px: 10,
+  // set 100vw = 10rem
+  totalRem: 10,
 });
 ```
 
@@ -29,8 +27,8 @@ new VW({
 <style>
   .block {
     background-color: red;
-    width: 18rem;
-    height: 18rem;
+    width: 5rem;
+    height: 5rem;
   }
 </style>
 
